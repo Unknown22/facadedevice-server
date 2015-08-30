@@ -14,16 +14,14 @@ from facadedevice import device as proxy_module
 from facadedevice import proxy_command, proxy_attribute
 from facadedevice import proxy, logical_attribute
 
-class FacadeServer(Device):
-    __metaclass__ = DeviceMeta
+class FacadeServer(Facade):
+    __metaclass__ = FacadeMeta
 
 
-#     Status = proxy_attribute(device="elin/focus/kly1",
-#                              attr="Current",
-#                              dtype=float)
-#     status = proxy_attribute (device="elin/focus/kly1",
-#                               attr="elin/focus/kly1/Current",
-#                               dtype=float)
+    Status = proxy_attribute(device="elin/focus/kly1",
+                             attr="elin/focus/kly1/current",
+                             dtype=float)
+
     
     current = attribute(label="Current", dtype=float,
                         display_level=DispLevel.OPERATOR,
@@ -36,15 +34,15 @@ class FacadeServer(Device):
                         fset="set_current",
                         doc="current")
  
-    noise = attribute(label="Noise",
-                      dtype=((int,),),
-                      max_dim_x=1024, max_dim_y=1024)
-
-    host = device_property(dtype=str)
-    port = device_property(dtype=int, default_value=9788)
+#     noise = attribute(label="Noise",
+#                       dtype=((int,),),
+#                       max_dim_x=1024, max_dim_y=1024)
+# 
+#     host = device_property(dtype=str)
+#     port = device_property(dtype=int, default_value=9788)
     
     def init_device(self):
-        Device.init_device(self)
+        Facade.init_device(self)
         self.__current = 0.0
         self.set_state(DevState.STANDBY)
   
