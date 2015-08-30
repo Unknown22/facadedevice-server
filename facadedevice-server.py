@@ -14,22 +14,22 @@ from facadedevice import device as proxy_module
 from facadedevice import proxy_command, proxy_attribute
 from facadedevice import proxy, logical_attribute
 
-class FacadeServer(Facade):
-    __metaclass__ = FacadeMeta
+class FacadeServer(Device):
+    __metaclass__ = DeviceMeta
 
 
-    Status = proxy_attribute(device="elin/focus/kly1",
-                             attr="elin/focus/kly1/current",
-                             dtype=float)
+#     Status = proxy_attribute(device="elin",
+#                              attr="Current",
+#                              dtype=float)
 
     
     current = attribute(label="Current", dtype=float,
                         display_level=DispLevel.OPERATOR,
                         access=AttrWriteType.READ_WRITE,
                         unit="A",format="8.4f",
-                        min_value=0.0, max_value=8.5,
-                        min_alarm=0.1, max_alarm=8.4,
-                        min_warning=0.5, max_warning=8.0,
+#                         min_value=0.0, max_value=8.5,
+#                         min_alarm=0.1, max_alarm=8.4,
+#                         min_warning=0.5, max_warning=8.0,
                         fget="get_current",
                         fset="set_current",
                         doc="current")
@@ -38,12 +38,12 @@ class FacadeServer(Facade):
 #                       dtype=((int,),),
 #                       max_dim_x=1024, max_dim_y=1024)
 # 
-#     host = device_property(dtype=str)
-#     port = device_property(dtype=int, default_value=9788)
+    host = device_property(dtype=str)
+    port = device_property(dtype=int, default_value=9788)
     
     def init_device(self):
-        Facade.init_device(self)
-        self.__current = 0.0
+        Device.init_device(self)
+        self.__current = 223
         self.set_state(DevState.STANDBY)
   
     def get_current(self):
